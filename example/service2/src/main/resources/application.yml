@@ -1,0 +1,9 @@
+spring.jmx.default-domain: ${spring.application.name}
+
+server:
+  port: 8082
+
+logging:
+  level:
+    ROOT: INFO
+    net.acesinc: DEBUG

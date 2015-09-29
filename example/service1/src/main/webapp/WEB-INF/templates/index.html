@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Home</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+        <style>
+            html,
+            body {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 13px;
+                font-weight: 400;
+                color: #555;
+                height: 100%;
+                width: 100%!important;
+                background-color: #33383d;
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
+            .cui-error{
+                color: red;
+            }
+        </style>
+    </head>
+    <body id="page-top">
+        <div id="content" >
+            <header class="jumbotron">
+                <div class="header-content-inner container" style="text-align: center">
+                    <h1>Convergent UI Example Page</h1>
+                </div>
+            </header>
+            <div class="container" style="padding-bottom: 40px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">The section below will load content from service2/test2.  If there is a failure, the error will be printed below</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div data-loc="http://service2/test2" data-fail-quietly="false" data-fragment-name="test1" data-cache-name="service2:test2">
+                                    replace me!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">The section below will load content from service2/test2.  If there is a failure, and empty div will be placed below</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div data-loc="http://service2/test2" data-fail-quietly="true" data-fragment-name="test1" data-cache-name="service2:test2">
+                                    replace me!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">This section loads content from service2/dontcache which randomly generates a new string with each request.  We disable caching here so we are sure to always get the latest content.</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div data-loc="http://service2/dontcache" data-fail-quietly="false" data-cache-name="service2:dontcache" data-disable-caching="true">
+                                    replace me!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default" style="text-align: center">
+                            <div class="panel-body">
+                                If you are interested in seeing some different results, go ahead and shutdown service2, then reload this page.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

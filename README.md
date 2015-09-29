@@ -1,6 +1,6 @@
 ## Convergent UI
 
-Convergent UI is a special Zuul Filter that aims to provide a solution to the Distributed Composition problem faced when building a GUI within a Micro Services Architecture. Inspired by a [great article](https://medium.com/@clifcunn/nodeconf-eu-29dd3ed500ec) by [Clifton Cunningham on Medium](https://medium.com/@clifcunn) and their work on [Compoxure](https://github.com/tes/compoxure), we decided to work on porting their architecture to our Spring Cloud based architecture.  The Compoxure Architecture used many simular constructs available within Spring Cloud, so it made sense to us to port the ideas proposed by Clifton to the Spring framework.  
+Convergent UI is a special Zuul Filter that aims to provide a solution to the Distributed Composition problem faced when building a GUI within a Micro Services Architecture. Inspired by a [great article](https://medium.com/@clifcunn/nodeconf-eu-29dd3ed500ec) by [Clifton Cunningham on Medium](https://medium.com/@clifcunn) and his work on [Compoxure](https://github.com/tes/compoxure), we decided to work on porting their architecture to our Spring Cloud based architecture.  The Compoxure Architecture used many simular constructs available within Spring Cloud, so it made sense to us to port the ideas proposed by Clifton to the Spring framework.  
 
 Distributed Composition is a term that describes the need for a single UI to include pieces of UIs from many services.  When building a Micro Services Architecture, we are told to seperate concerns as much as possible, and to us, that also means seperating the UIs from each other. At the same time, there is a desire to have a unified UI that doesn't look/act like a frameset from the 90's. Clifton provided a wondeful mockup of a UI that you might want to break up into smaller parts here:
 
@@ -61,18 +61,21 @@ public class CacheConfig extends CachingConfigurerSupport {
 }
 ```
 
-And you're done!  Convergent UI will now scan all the HTML coming across your proxy for Convergent enabled documents.  
+As we've said, Convergent UI is implemented as a `ZuulFilter`, so you will obviously need to be running Zuul in your architecture. In Compoxure, you had to specify where the base HTML layout would come from in their configuration. Our configuration is externalized and seperated form Convergent UI. All you need to do is set up your routing in the Zuul Edge Server and then Convergent UI will process HTML that comes from those routing endpoints. In our setup, our Zuul Proxy routes traffic to a common UI micro service. This common UI micro service serves up a HTML layout that defines the over all page and can now point to and include HTML and other content from other back end micro services as well.  
+
+So, once you have setup Zuul and installed the Convergent UI Filter, you are ready to go! Convergent UI will now scan all the HTML coming across your proxy for Convergent enabled documents.  
 
 ### Convergent UI Syntax
 
-The ConvergentUIFilter scans HTML coming across the Proxy for content enriched with some special tags.  The most important of those tags is the `data-loc` tag.  The `data-loc` tag specifies the location of the content you wish to replace a section of your composable page with.  
+The ConvergentUIFilter scans HTML coming across the Proxy for content enriched with some special tags.  The most important of those tags is the `data-loc` tag.  The `data-loc` tag specifies the location of the content you wish to replace a section of your composable page with. We also took a page from the [ThymeLeaf](http://www.thymeleaf.org/) book and introduced the idea of a Fragment within a page that you can include.  This allows you to support both a stand alone UI in your microservice and also include the important parts of that UI in your Converged UI.  
 
 | Property        | Description   |
 | --------------- |----------------|
 | `data-loc` | Defines the location of the remote content to include.  The location specified should be a service registered with the Eureka Discovery Service.  Example: http://my-service/content1 |
 | `data-cache-name` | A unique name for this section of the content. Will be used in the local cache key |
 | `data-fragment-name` | A unique name of a fragment of the content provided by the data-loc. This allows you to request an entire HTML page and only include a section of that page that contains a `data-fragment-name` that matches this name.  |
-| `data-fail-quietly` | If true and a failure occurs, the content section will be replaces with an empty `<div>`. If false, the content section will be replaces with an error message |
+| `data-fail-quietly` | If true and a failure occurs, the content section will be replaced with an empty `<div class='cui-error'>`. If false, the content section will be replaced with an error message inside a `<span class='cui-error'></span>` |
+| `data-disable-caching` | If you would like to disable caching for this location, set this to true |
 
 An example section of HTML follows:
 

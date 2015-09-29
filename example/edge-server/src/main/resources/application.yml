@@ -1,0 +1,23 @@
+info:
+  component: Zuul Server
+  
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  routes:
+    service1: /**
+
+logging:
+  level:
+    ROOT: INFO
+    net.acesinc: DEBUG
+
+server:
+  port: 8080
+    
