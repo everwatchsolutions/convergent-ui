@@ -119,5 +119,7 @@ The `<div>` would look like the following after passing through the ConvergentUI
 	</div>
 ```
 
+### Example
 
+If you want to see ConvergentUI in action, check out the [`example` directory](https://github.com/acesinc/convergent-ui/tree/master/example) and run the example on your own box to see how it works.  
 
