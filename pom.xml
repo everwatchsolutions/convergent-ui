@@ -4,13 +4,13 @@
     <groupId>net.acesinc</groupId>
     <artifactId>convergent-ui</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     
     <scm>
         <connection>scm:git:git://github.com/acesinc/convergent-ui.git</connection>
         <developerConnection>scm:git:git@github.com:acesinc/convergent-ui.git</developerConnection>
         <url>https://github.com/acesinc/convergent-ui</url>
-        <tag>HEAD</tag>
+        <tag>convergent-ui-1.0.2</tag>
     </scm>
   
     <licenses>
