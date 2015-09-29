@@ -52,6 +52,10 @@ public class ConvergentUIFilter extends BaseResponseFilter {
     public Object run() {
 
         String origBody = contentManager.getDownstreamResponse();
+        if (origBody == null || origBody.isEmpty()) {
+            return null;
+        }
+        
         String composedBody = null;
         log.trace("Response from downstream server: " + origBody);
 
@@ -97,9 +101,9 @@ public class ConvergentUIFilter extends BaseResponseFilter {
                             } else {
                                 log.debug("Found no matching fragments for [ " + fragmentName + " ]");
                                 if (failQuietly) {
-                                    content.append("<div></div>");
+                                    content.append("<div class='cui-error'></div>");
                                 } else {
-                                    content.append("<span style='color: red;'>Failed getting content from remote service. Possible reason in reponse below</span>");
+                                    content.append("<span class='cui-error'>Failed getting content from remote service. Possible reason in reponse below</span>");
                                     content.append(subDocument.toString());
                                 }
                             }
@@ -109,9 +113,9 @@ public class ConvergentUIFilter extends BaseResponseFilter {
                         }
                     } else {
                         if (!failQuietly) {
-                            content.append("<span style='color: red;'>Failed getting content from remote service. Reason: " + response.getMessage() + "</span>");
+                            content.append("<span class='cui-error'>Failed getting content from remote service. Reason: " + response.getMessage() + "</span>");
                         } else {
-                            content.append("<div></div>");
+                            content.append("<div class='cui-error'></div>");
                         }
                     }
 
@@ -121,7 +125,7 @@ public class ConvergentUIFilter extends BaseResponseFilter {
                     }
                 } catch (Throwable t) {
                     if (!failQuietly) {
-                        e.html("<span style='color: red;'>Failed getting content from remote service. Reason: " + t.getMessage() + "</span>");
+                        e.html("<span class='cui-error'>Failed getting content from remote service. Reason: " + t.getMessage() + "</span>");
                     }
                     log.warn("Failed replacing content", t);
                 }
