@@ -24,9 +24,9 @@ First, include the dependency in your pom.xml (or gradle.properities):
 
 ```
 <dependency>
-    <groupId>net.acesinc.util</groupId>
-    <artifactId>security</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+  <groupId>net.acesinc</groupId>
+  <artifactId>convergent-ui</artifactId>
+  <version>1.0.2</version>
 </dependency>
 ```
 Next, in your application configuration, you need to tell Spring to scan our jar file for Spring Components.  To do that, you need to include the `@ComponentScan` annotation in your Application config like so:
