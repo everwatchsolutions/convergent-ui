@@ -38,10 +38,11 @@ public class ContentService {
     private RestTemplate restTemplate;
 
     /**
-     * @see getContentFromService(location, cacheName, useCache)
+     * @see ContentResponse#getContentFromService(String, String, boolean, RequestContext)
      *
      * @param location The remote location of the content
      * @param cacheName The unique cache name for this piece of content
+     * @param context THe RequestContext for this request
      * @return The content returned from the service as a string.
      */
     public ContentResponse getContentFromService(String location, String cacheName, RequestContext context) {
@@ -61,6 +62,7 @@ public class ContentService {
      * @param location The remote location of the content
      * @param cacheName The unique cache name for this piece of content
      * @param useCache Use caching if true, skip otherwise.
+     * @param context THe RequestContext for this request
      * @return The content returned from the service as a string.
      */
     @Cacheable(value = "service-content", key = "#cacheName", unless = "!#useCache or #result.error")
