@@ -4,7 +4,7 @@
     <groupId>net.acesinc</groupId>
     <artifactId>convergent-ui</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     
     <scm>
         <connection>scm:git:git://github.com/acesinc/convergent-ui.git</connection>
@@ -111,6 +111,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
                 <configuration>
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
                 </configuration>
