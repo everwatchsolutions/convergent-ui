@@ -1,0 +1,10 @@
+target/
+.DS_Store
+dist/
+node_modules/
+nbproject/
+afco-ui/node/
+afco-ui/src/main/webapp/static/
+Thumbs.db
+nb-configuration.xml
+.travis.yml
