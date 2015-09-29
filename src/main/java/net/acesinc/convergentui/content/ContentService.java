@@ -38,8 +38,8 @@ public class ContentService {
     private RestTemplate restTemplate;
 
     /**
-     * @see ContentResponse#getContentFromService(String, String, boolean, RequestContext)
-     *
+     * This is just a pass through/helper method for the full getContentFromService. 
+     * 
      * @param location The remote location of the content
      * @param cacheName The unique cache name for this piece of content
      * @param context THe RequestContext for this request
