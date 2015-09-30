@@ -87,7 +87,6 @@ public class ContentService {
             try {
                 HttpServletResponse servletResponse = context.getResponse();
                 servletResponse.setCharacterEncoding("UTF-8");
-                OutputStream outStream = servletResponse.getOutputStream();
                 InputStream is = null;
 
                 boolean isGzipRequested = false;

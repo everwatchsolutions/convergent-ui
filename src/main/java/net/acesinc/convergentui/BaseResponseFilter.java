@@ -17,13 +17,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.MimeType;
 
 /**
  *
  * @author andrewserff
  */
 public abstract class BaseResponseFilter extends ZuulFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(BaseResponseFilter.class);
 
     private static DynamicBooleanProperty INCLUDE_DEBUG_HEADER = DynamicPropertyFactory
             .getInstance().getBooleanProperty(ZuulConstants.ZUUL_INCLUDE_DEBUG_HEADER,
@@ -36,7 +42,7 @@ public abstract class BaseResponseFilter extends ZuulFilter {
     private static DynamicBooleanProperty SET_CONTENT_LENGTH = DynamicPropertyFactory
             .getInstance().getBooleanProperty(ZuulConstants.ZUUL_SET_CONTENT_LENGTH,
                     false);
-    
+
     @Override
     public String filterType() {
         return "post";
@@ -49,9 +55,38 @@ public abstract class BaseResponseFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return !RequestContext.getCurrentContext().getZuulResponseHeaders().isEmpty()
+        String contentType = getContentType(RequestContext.getCurrentContext());
+        String verb = getVerb(RequestContext.getCurrentContext().getRequest());
+
+        return "text/html".equals(contentType) && "GET".equalsIgnoreCase(verb) && (!RequestContext.getCurrentContext().getZuulResponseHeaders().isEmpty()
                 || RequestContext.getCurrentContext().getResponseDataStream() != null
-                || RequestContext.getCurrentContext().getResponseBody() != null;
+                || RequestContext.getCurrentContext().getResponseBody() != null);
+    }
+
+    private String getVerb(HttpServletRequest request) {
+        String method = request.getMethod();
+        if (method == null) {
+            return "GET";
+        }
+        return method;
+    }
+
+    private String getContentType(RequestContext context) {
+        List<Pair<String, String>> headers = context.getZuulResponseHeaders();
+        String contentType = null;
+        for (Pair<String, String> pair : headers) {
+            if ("content-type".equalsIgnoreCase(pair.first())) {
+                contentType = pair.second();
+                break;
+            }
+        }
+        
+        MimeType type = MimeType.valueOf(contentType);
+        if (type != null) {
+            return type.getType() + "/" + type.getSubtype();
+        } else {
+            return contentType;
+        }
     }
 
     protected void writeResponse(String responseBody) throws Exception {
