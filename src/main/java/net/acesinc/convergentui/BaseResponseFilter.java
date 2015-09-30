@@ -80,13 +80,18 @@ public abstract class BaseResponseFilter extends ZuulFilter {
                 break;
             }
         }
-        
-        MimeType type = MimeType.valueOf(contentType);
-        if (type != null) {
-            return type.getType() + "/" + type.getSubtype();
+
+        if (contentType != null) {
+            MimeType type = MimeType.valueOf(contentType);
+            if (type != null) {
+                contentType = type.getType() + "/" + type.getSubtype();
+            } else {
+                contentType = "unknown";
+            }
         } else {
-            return contentType;
+            contentType = "unknown";
         }
+        return contentType;
     }
 
     protected void writeResponse(String responseBody) throws Exception {
