@@ -6,13 +6,15 @@
 package net.acesinc.convergentui.content;
 
 import java.io.Serializable;
+import org.springframework.http.MediaType;
 
 /**
  *
  * @author andrewserff
  */
 public class ContentResponse implements Serializable {
-    private String content;
+    private Object content;
+    private MediaType contentType;
     private boolean error = false;
     private String message;
 
@@ -29,14 +31,14 @@ public class ContentResponse implements Serializable {
     /**
      * @return the content
      */
-    public String getContent() {
+    public Object getContent() {
         return content;
     }
 
     /**
      * @param content the content to set
      */
-    public void setContent(String content) {
+    public void setContent(Object content) {
         this.content = content;
     }
 
@@ -66,5 +68,19 @@ public class ContentResponse implements Serializable {
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    /**
+     * @return the contentType
+     */
+    public MediaType getContentType() {
+        return contentType;
+    }
+
+    /**
+     * @param contentType the contentType to set
+     */
+    public void setContentType(MediaType contentType) {
+        this.contentType = contentType;
     }
 }

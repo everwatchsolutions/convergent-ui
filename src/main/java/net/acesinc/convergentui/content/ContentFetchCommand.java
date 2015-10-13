@@ -8,6 +8,7 @@ package net.acesinc.convergentui.content;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.zuul.context.RequestContext;
+import java.awt.image.BufferedImage;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,11 +62,11 @@ public class ContentFetchCommand extends HystrixCommand<ContentResponse> {
             }
             HttpEntity requestEntity = new HttpEntity(null, requestHeaders);
 
-            ResponseEntity<String> exchange = this.restTemplate.exchange(location, HttpMethod.GET, requestEntity, String.class);
-            String content = exchange.getBody();
-
+            ResponseEntity<Object> exchange = this.restTemplate.exchange(location, HttpMethod.GET, requestEntity, Object.class);
+            
             ContentResponse response = new ContentResponse();
-            response.setContent(content);
+            response.setContent(exchange.getBody());
+            response.setContentType(exchange.getHeaders().getContentType());
             response.setError(false);
 
             return response;

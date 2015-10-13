@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -37,6 +38,13 @@ public class ContentService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @PostConstruct
+    public void setup() {
+        //We have to add some extra special handlers. 
+        restTemplate.getMessageConverters().add(new BufferedImageHttpMessageConverter());
+        restTemplate.getMessageConverters().add(new TextHttpMessageConverter());
+    }
+    
     /**
      * This is just a pass through/helper method for the full getContentFromService. 
      * 

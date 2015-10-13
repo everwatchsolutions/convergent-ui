@@ -119,6 +119,25 @@ The `<div>` would look like the following after passing through the ConvergentUI
 	</div>
 ```
 
+#### Images, CSS & Javascript
+
+Convergent-UI also supports the ability to request images, javascript, css, json, etc from the backend services. This is useful because the HTML that might be served from the backend service could contain images.  It could also require some special styling or javascript in order to look/work correctly.  Convergent-UI will scrape the HTML that is returned from backend services for any image tags whose `src` start with a '/' (meaning they are trying to load images from the root of the context (i.e. /images/image.png)). If it find any, it will replace the `src` with a special URL that will act as a hint to Convergent-UI to pass that request through to the backend service that the HTML came from.  This special URL format can also be used to retrieve css/javascript from the backend service as well.  The format is as follows:
+
+```
+/cui-req://http://service-name/path/to/resource
+```
+
+As an example, if you wanted to load the javascript for a page served from the backend service `service1` you would do the following:
+
+```
+ <script src="/cui-req://http://service1/js/app.js"></script>
+```
+
+This will force the page to request the script though the Proxy which enacts the ConvergentUIRequestFilter who gets the data and returns it to you. 
+
+You should be aware that any content in your backend service can be exposed via this manner, however, only GET requests are forwarded. Therefore, it's recommended that you protect your resources as needed to ensure you are only exposing the resources you want exposed to prying eyes. 
+
+
 ### Example
 
 If you want to see ConvergentUI in action, check out the [`example` directory](https://github.com/acesinc/convergent-ui/tree/master/example) and run the example on your own box to see how it works.  
