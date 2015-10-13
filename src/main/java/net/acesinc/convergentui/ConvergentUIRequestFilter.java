@@ -8,7 +8,6 @@ package net.acesinc.convergentui;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.zuul.context.RequestContext;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import net.acesinc.convergentui.content.ContentResponse;
 import net.acesinc.convergentui.content.ContentService;
@@ -23,7 +22,11 @@ import org.springframework.util.MimeType;
  * images, javascript, css, etc from downstream services. ConvergentUI Requests
  * must conform to a special format that looks like: /cui-req:// An example of
  * how to use this might be:
- * <img src="/cui-req://service2/images/img.png" />
+ * <pre>
+ * {@code
+ * <img src="/cui-req://service2/images/img.png" alt='img' ></img>
+ * }
+ * </pre>
  * This will request the image "img.png" from service2 at the path
  * /images/img.png
  *
