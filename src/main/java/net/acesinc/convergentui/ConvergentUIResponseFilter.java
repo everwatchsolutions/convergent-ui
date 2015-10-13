@@ -58,6 +58,7 @@ public class ConvergentUIResponseFilter extends BaseResponseFilter {
                 URL url = null;
                 try {
                     url = new URL(location);
+                    String protocol = url.getProtocol();
                     String service = url.getHost();
 
                     log.debug("Fetching content at location [ " + location + " ] with cacheName = [ " + cacheName + " ]");
@@ -88,7 +89,7 @@ public class ConvergentUIResponseFilter extends BaseResponseFilter {
                                             for (Element i : images) {
                                                 String src = i.attr("src");
                                                 if (src.startsWith("/") && !src.startsWith("//")) {
-                                                    i.attr("src", "/cui-req://https://" + service + src);
+                                                    i.attr("src", "/cui-req://" + protocol + "://" + service + src);
                                                 } //else what do we do about relative urls?
                                             }
 
