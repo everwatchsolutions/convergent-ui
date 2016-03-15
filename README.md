@@ -61,7 +61,7 @@ public class CacheConfig extends CachingConfigurerSupport {
 }
 ```
 
-As we've said, Convergent UI is implemented as a `ZuulFilter`, so you will obviously need to be running Zuul in your architecture. In Compoxure, you had to specify where the base HTML layout would come from in their configuration. Our configuration is externalized and seperated form Convergent UI. All you need to do is set up your routing in the Zuul Edge Server and then Convergent UI will process HTML that comes from those routing endpoints. In our setup, our Zuul Proxy routes traffic to a common UI micro service. This common UI micro service serves up a HTML layout that defines the over all page and can now point to and include HTML and other content from other back end micro services as well.  
+As we've said, Convergent UI is implemented as a `ZuulFilter`, so you will obviously need to be running Zuul in your architecture. In Compoxure, you had to specify where the base HTML layout would come from in their configuration. Our configuration is externalized and seperated from Convergent UI. All you need to do is set up your routing in the Zuul Edge Server and then Convergent UI will process HTML that comes from those routing endpoints. In our setup, our Zuul Proxy routes traffic to a common UI micro service. This common UI micro service serves up a HTML layout that defines the over all page and can now point to and include HTML and other content from other back end micro services as well.  
 
 So, once you have setup Zuul and installed the Convergent UI Filter, you are ready to go! Convergent UI will now scan all the HTML coming across your proxy for Convergent enabled documents.  
 
