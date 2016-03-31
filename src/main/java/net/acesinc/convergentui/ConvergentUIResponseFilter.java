@@ -55,6 +55,7 @@ public class ConvergentUIResponseFilter extends BaseResponseFilter {
                 String cacheName = e.dataset().get("cache-name");
                 boolean useCaching = !Boolean.valueOf(e.dataset().get("disable-caching"));
                 boolean failQuietly = Boolean.valueOf(e.dataset().get("fail-quietly"));
+                boolean replaceOuter = e.dataset().get("replace-outer") == null ? true : Boolean.valueOf(e.dataset().get("replace-outer"));
                 URL url = null;
                 try {
                     url = new URL(location);
@@ -140,6 +141,11 @@ public class ConvergentUIResponseFilter extends BaseResponseFilter {
                         }
                         log.warn("Failed replacing content", t);
                     }
+                    
+                    if(replaceOuter) {
+						// outer element should be replaced by content
+						e.unwrap();
+					}
                 } catch (MalformedURLException ex) {
                     log.warn("location was invalid: [ " + location + " ]", ex);
                     if (!failQuietly) {
