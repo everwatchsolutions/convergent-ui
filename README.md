@@ -12,6 +12,10 @@ To summarize Clifton's approach, he described a Proxy that would handle composin
 
 Our approach is slightly different than the Compoxure approach, so read on to find out more about how Convergent UI works.  
 
+### Project Status 
+
+[![Build Status](https://travis-ci.org/acesinc/convergent-ui.svg?branch=master)](https://travis-ci.org/acesinc/convergent-ui)
+
 ### License
 
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
