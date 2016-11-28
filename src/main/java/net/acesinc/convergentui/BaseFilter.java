@@ -52,10 +52,10 @@ public abstract class BaseFilter extends ZuulFilter {
     }
 
     protected String getVerb(HttpServletRequest request) {
-        String method = request.getMethod();
-        if (method == null) {
-            return "GET";
-        }
+    	String method = "GET";
+    	if (request != null && request.getMethod() != null) {
+    		method = request.getMethod();
+    	}
         return method;
     }
 
@@ -187,12 +187,12 @@ public abstract class BaseFilter extends ZuulFilter {
             }
         }
         RequestContext ctx = RequestContext.getCurrentContext();
-        Integer contentLength = ctx.getOriginContentLength();
+        Long contentLength = ctx.getOriginContentLength();
         // Only inserts Content-Length if origin provides it and origin response is not
         // gzipped
         if (SET_CONTENT_LENGTH.get()) {
             if (contentLength != null && !ctx.getResponseGZipped()) {
-                servletResponse.setContentLength(contentLength);
+                servletResponse.setContentLengthLong(contentLength);
             }
         }
     }

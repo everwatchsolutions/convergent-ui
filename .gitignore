@@ -5,3 +5,6 @@ node_modules/
 nbproject/
 Thumbs.db
 nb-configuration.xml
+.classpath
+.project
+.settings/
