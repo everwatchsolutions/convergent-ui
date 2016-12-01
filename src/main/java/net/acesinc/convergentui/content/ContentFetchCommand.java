@@ -82,7 +82,16 @@ public class ContentFetchCommand extends HystrixCommand<ContentResponse> {
         ContentResponse response = new ContentResponse();
         response.setContent("");
         response.setError(true);
-        response.setMessage(getFailedExecutionException().getMessage());
+        
+        String defaultErrorMsg = getFailedExecutionException().getMessage();
+        if (defaultErrorMsg == null || defaultErrorMsg.isEmpty()) {
+            defaultErrorMsg = "Unknown Error";
+        }
+        //see if we can get a better error message
+        Exception errorFromThrowable = getExceptionFromThrowable(getExecutionException());
+        String errMessage = (errorFromThrowable != null) ? errorFromThrowable.getMessage() : defaultErrorMsg;
+        
+        response.setMessage(errMessage);
         return response;
     }
 }
