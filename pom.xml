@@ -7,13 +7,13 @@
     <description>Convergent UI is a special Zuul Filter that aims to provide a solution to the Distributed Composition problem faced when building a GUI within a Micro Services Architecture.</description>
     <url>https://github.com/acesinc/convergent-ui</url>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     
     <scm>
         <connection>scm:git:git://github.com/acesinc/convergent-ui.git</connection>
         <developerConnection>scm:git:git@github.com:acesinc/convergent-ui.git</developerConnection>
         <url>https://github.com/acesinc/convergent-ui</url>
-        <tag>convergent-ui-1.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
   
     <licenses>
