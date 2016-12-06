@@ -21,3 +21,6 @@ logging:
 server:
   port: 8080
     
+#spring:
+#    redis:
+#        password: redis-dev-pass

@@ -9,7 +9,6 @@ import com.netflix.zuul.constants.ZuulHeaders;
 import com.netflix.zuul.context.RequestContext;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -135,6 +135,7 @@ public class ContentService {
         return body;
     }
     
+    @LoadBalanced
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
