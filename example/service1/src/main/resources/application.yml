@@ -7,7 +7,3 @@ logging:
   level:
     ROOT: INFO
     net.acesinc: DEBUG
-    
-#spring:
-#    redis:
-#        password: redis-dev-pass
