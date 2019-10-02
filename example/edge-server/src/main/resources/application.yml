@@ -20,3 +20,13 @@ logging:
 
 server:
   port: 8080
+
+spring:
+  cache:
+    type: redis
+    time-to-live: 300
+  redis:
+    host: localhost
+    port: 6379
+
+
