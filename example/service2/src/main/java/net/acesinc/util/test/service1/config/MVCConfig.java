@@ -17,8 +17,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
@@ -43,10 +43,10 @@ public class MVCConfig extends WebMvcConfigurationSupport {
     public ThymeleafViewResolver thymeleafViewResolver(WebApplicationContext wac) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(wac.getServletContext());
         templateResolver.setPrefix("/WEB-INF/templates/");
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
         templateEngine.setTemplateResolver(templateResolver);
         resolver.setTemplateEngine(templateEngine);

@@ -50,9 +50,8 @@ Once you have loaded the page and you see how it can pull content from service2,
 ```
 redis-cli
 127.0.0.1:6379> keys *
-1) "service-content~keys"
-2) "\xac\xed\x00\x05t\x00\x0eservice2:test2"
-127.0.0.1:6379> del "\xac\xed\x00\x05t\x00\x0eservice2:test2"
+1) "service-content::service2:test2"
+127.0.0.1:6379> del "service-content::service2:test2"
 (integer) 1
 ```
 Then reload the page again and you should see all the sections with errors.  
