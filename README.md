@@ -30,7 +30,7 @@ First, include the dependency in your pom.xml (or gradle.properities):
 <dependency>
   <groupId>net.acesinc</groupId>
   <artifactId>convergent-ui</artifactId>
-  <version>1.0.4</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 Next, in your application configuration, you need to tell Spring to scan our jar file for Spring Components.  To do that, you need to include the `@ComponentScan` annotation in your Application config like so:
@@ -39,31 +39,16 @@ Next, in your application configuration, you need to tell Spring to scan our jar
 @ComponentScan(basePackages = {"net.acesinc"})
 ```
 
-In order for Caching to work, you need to provide a `CacheManager` implementation. We use Redis for our cache, so here is an example config:
+In order for Caching to work, you need to provide a `CacheManager` implementation or have Spring Boot provide one. 
 
-```
-@Configuration
-@EnableCaching
-public class CacheConfig extends CachingConfigurerSupport {
+If you're using Spring 5 without Spring Boot, define a `CacheManager` Bean, and use the `@EnableCachcing` annotation as detailed in 
+[Spring's documentation](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/cache/annotation/EnableCaching.html). 
 
-    @Bean
-    public RedisTemplate<String, ContentResponse> redisTemplate(RedisConnectionFactory cf) {
-        RedisTemplate<String, ContentResponse> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(cf);
-        return redisTemplate;
-    }
-
-    @Bean
-    public CacheManager cacheManager(RedisTemplate<String, ContentResponse> redisTemplate) {
-        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
-
-        // Number of seconds before expiration. Defaults to unlimited (0)
-        cacheManager.setDefaultExpiration(300);
-        return cacheManager;
-    }
-
-}
-```
+If you're using Spring Boot 2, simply add the `spring-boot-starter-cache`  dependency and
+a cache store dependency of your choice (e.g. spring-boot-starter-data-redis) to your build file, 
+and add the `@EnableCaching` annotation to a class annotated with `@Configuration` or your `@SpringBootApplication` class.
+ [Details 
+available here.](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html)
 
 As we've said, Convergent UI is implemented as a `ZuulFilter`, so you will obviously need to be running Zuul in your architecture. In Compoxure, you had to specify where the base HTML layout would come from in their configuration. Our configuration is externalized and seperated from Convergent UI. All you need to do is set up your routing in the Zuul Edge Server and then Convergent UI will process HTML that comes from those routing endpoints. In our setup, our Zuul Proxy routes traffic to a common UI micro service. This common UI micro service serves up a HTML layout that defines the over all page and can now point to and include HTML and other content from other back end micro services as well.  
 
