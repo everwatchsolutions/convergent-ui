@@ -65,6 +65,7 @@ The ConvergentUIFilter scans HTML coming across the Proxy for content enriched w
 | `data-fragment-name` | A unique name of a fragment of the content provided by the data-loc. This allows you to request an entire HTML page and only include a section of that page that contains a `data-fragment-name` that matches this name.  |
 | `data-fail-quietly` | If true and a failure occurs, the content section will be replaced with an empty `<div class='cui-error'>`. If false, the content section will be replaced with an error message inside a `<span class='cui-error'></span>` |
 | `data-disable-caching` | If you would like to disable caching for this location, set this to true |
+| `data-replace-outer` | If true, the `data-loc` tag will be replaced by the remote content or fragment (true by default in order to keep final HTML clean) |
 
 An example section of HTML follows:
 
